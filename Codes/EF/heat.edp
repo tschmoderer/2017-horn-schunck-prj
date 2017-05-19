@@ -1,0 +1,39 @@
+string filename1="image1";		
+
+mesh Sh;
+{
+	Sh=triangulate(filename1); 
+	fespace Vh(Sh,P1); 
+	Vh u1=0; 		
+	{
+		{  
+			ifstream file(filename1);
+			real xx,yy;
+			cout << u1.n;
+
+			for(int i=0;i<u1.n;i++) {
+				file >> xx >> yy >> u1[][i]; 
+			}
+		}		
+	}
+
+	mesh Th=readmesh("img.msh");
+
+	fespace Wh(Th,P1);
+	Wh uh,vh,uh0=u1;
+	macro Grad(u)[dx(u),dy(u)]//
+	real dt = 0.5, Tf = 100;
+	//Défiinition du problème
+	problem chaleur(uh,vh) = int2d(Th)(vh*uh/dt) +  int2d(Th)(Grad(uh)'*Grad(vh)) - int2d(Th)(uh0*vh/dt);
+
+	int kk=0;
+	for (real t=0.;t<Tf;t+=dt) {
+		chaleur;
+		uh0=uh; 
+		cout << kk;
+		if ( !(kk % 2)) {
+			plot(uh,grey=1,fill=1,OpaqueBorders=1,ShowAxes=0,ps="000"+kk+".png"); 
+		} 
+		kk+=1;
+	}
+}

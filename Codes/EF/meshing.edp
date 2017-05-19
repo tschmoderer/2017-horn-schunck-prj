@@ -1,0 +1,24 @@
+string filename1="image1";		// Noms du fichier textescontenant l'image
+
+mesh Sh;
+{
+	Sh=triangulate(filename1); //On introduit un maillage uniforme sur l'image 
+}
+
+fespace Vh(Sh,P1); // On souhaite travailler avec les éléments finis P1 sur Sh
+Vh u1=0; 		// On définit l'images
+{
+	{ 
+	// import de l'image 1 
+	ifstream file(filename1);
+	real xx,yy;
+
+	for(int i=0;i<u1.n;i++) {
+		file >> xx >> yy >> u1[][i]; 
+		}
+	}		
+}
+
+mesh Th=adaptmesh(Sh,u1,err=1.e0,nbvx=10000000); // on adapte le maillage à l'image
+savemesh(Th,"img.msh");
+plot(Th,wait=1,ps="mesh.png"); // On dessine le maillage obtenu.

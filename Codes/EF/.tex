@@ -1,0 +1,68 @@
+\documentclass{article}
+\usepackage{color}
+\usepackage[hmargin=1.5cm,vmargin=1.5cm]{geometry}
+\newcommand{\HighlightA}{\color{black}}
+\definecolor{DarkMagenta}{RGB}{139,0,139}
+\newcommand{\HighlightB}{\color{DarkMagenta}\it}
+\definecolor{DarkGreen}{RGB}{0,100,0}
+\newcommand{\HighlightC}{\color{DarkGreen}\bf}
+\definecolor{DarkBlue}{RGB}{0,0,139}
+\newcommand{\HighlightD}{\color{DarkBlue}\it}
+\newcommand{\HighlightE}{\color{blue}\bf}
+\newcommand{\HighlightF}{\color{blue}}
+\newcommand{\HighlightG}{\color{black}\bf}
+\newcommand{\HighlightH}{\color{black}\bf}
+\newcommand{\HighlightI}{\color{red}\bf}
+\begin{document}
+~\\{\HighlightA }{\HighlightG string}{\HighlightA ~}{\HighlightF filename1}{\HighlightA =}{\HighlightD "image1"}{\HighlightA ;		}{\HighlightB //~Noms~des~fichiers~textes~contenant~les~images}{\HighlightA 
+\\
+\\	}{\HighlightG mesh}{\HighlightA ~}{\HighlightF Sh}{\HighlightA ;
+\\	\{
+\\		}{\HighlightF Sh}{\HighlightA =}{\HighlightG triangulate}{\HighlightA (}{\HighlightF filename1}{\HighlightA );~}{\HighlightB //On~introduit~un~maillage~uniforme~sur~l'image~1}{\HighlightA 
+\\	\}
+\\	}{\HighlightG fespace}{\HighlightA ~}{\HighlightE Vh}{\HighlightA (}{\HighlightF Sh}{\HighlightA ,}{\HighlightG P1}{\HighlightA );~}{\HighlightB //~On~souhaite~travailler~avec~les~éléments~finis~P1~sur~Sh}{\HighlightA 
+\\	}{\HighlightE Vh}{\HighlightA ~}{\HighlightF u1}{\HighlightA =0;~		}{\HighlightB //~On~définit~les~images}{\HighlightA 
+\\	\{
+\\		\{~~
+\\		}{\HighlightB //~import~de~l'image~1~(la~syntaxe~est~celle~du~C++)}{\HighlightA 
+\\		}{\HighlightG ifstream}{\HighlightA ~}{\HighlightF file}{\HighlightA (}{\HighlightF filename1}{\HighlightA );
+\\		}{\HighlightG real}{\HighlightA ~}{\HighlightF xx}{\HighlightA ,}{\HighlightF yy}{\HighlightA ;
+\\		}{\HighlightG cout}{\HighlightA ~$<$$<$~}{\HighlightF u1}{\HighlightA .}{\HighlightG n}{\HighlightA ;
+\\
+\\		}{\HighlightG for}{\HighlightA (}{\HighlightG int}{\HighlightA ~}{\HighlightF i}{\HighlightA =0;}{\HighlightF i}{\HighlightA $<$}{\HighlightF u1}{\HighlightA .}{\HighlightG n}{\HighlightA ;}{\HighlightF i}{\HighlightA ++)~\{
+\\			}{\HighlightF file}{\HighlightA ~>>~}{\HighlightF xx}{\HighlightA ~>>~}{\HighlightF yy}{\HighlightA ~>>~}{\HighlightF u1}{\HighlightA $[$$]$$[$}{\HighlightF i}{\HighlightA $]$;~
+\\		}{\HighlightB //	cout~$<$$<$~xx~+~"\textbackslash{}n";}{\HighlightA 
+\\			\}
+\\		\}		
+\\
+\\		
+\\		
+\\	\}
+\\	
+\\	}{\HighlightG mesh}{\HighlightA ~}{\HighlightF Th}{\HighlightA =}{\HighlightG readmesh}{\HighlightA (}{\HighlightD "img.msh"}{\HighlightA );
+\\	
+\\	}{\HighlightG fespace}{\HighlightA ~}{\HighlightE Wh}{\HighlightA (}{\HighlightF Th}{\HighlightA ,}{\HighlightG P1}{\HighlightA );
+\\	}{\HighlightE Wh}{\HighlightA ~}{\HighlightF uh}{\HighlightA ,}{\HighlightF vh}{\HighlightA ,}{\HighlightF uh0}{\HighlightA =}{\HighlightF u1}{\HighlightA ;
+\\	}{\HighlightC macro~Grad(u)$[$dx(u),dy(u)$]$//}{\HighlightA 
+\\	}{\HighlightG real}{\HighlightA ~}{\HighlightF dt}{\HighlightA ~=~0.01,~}{\HighlightF Tf}{\HighlightA ~=~1;
+\\	}{\HighlightG problem}{\HighlightA ~}{\HighlightF chaleur}{\HighlightA (}{\HighlightF uh}{\HighlightA ,}{\HighlightF vh}{\HighlightA )~=~}{\HighlightG int2d}{\HighlightA (}{\HighlightF Th}{\HighlightA )(}{\HighlightF vh}{\HighlightA *}{\HighlightF uh}{\HighlightA /}{\HighlightF dt}{\HighlightA )~+~~}{\HighlightG int2d}{\HighlightA (}{\HighlightF Th}{\HighlightA )(}{\HighlightC Grad(uh)}{\HighlightA '*}{\HighlightC Grad(vh)}{\HighlightA )~-~}{\HighlightG int2d}{\HighlightA (}{\HighlightF Th}{\HighlightA )(}{\HighlightF uh0}{\HighlightA *}{\HighlightF vh}{\HighlightA /}{\HighlightF dt}{\HighlightA );
+\\	
+\\	}{\HighlightG int}{\HighlightA ~}{\HighlightF kk}{\HighlightA =0;
+\\	}{\HighlightG for}{\HighlightA ~(}{\HighlightG real}{\HighlightA ~}{\HighlightF t}{\HighlightA =0.;}{\HighlightF t}{\HighlightA $<$}{\HighlightF Tf}{\HighlightA ;}{\HighlightF t}{\HighlightA +=}{\HighlightF dt}{\HighlightA )~\{
+\\~~~~	}{\HighlightF chaleur}{\HighlightA ;
+\\~~~~	}{\HighlightF uh0}{\HighlightA =}{\HighlightF uh}{\HighlightA ;~
+\\~~~~	}{\HighlightG cout}{\HighlightA ~$<$$<$~}{\HighlightF kk}{\HighlightA ;
+\\~~~~	}{\HighlightG if}{\HighlightA ~(~!(}{\HighlightF kk}{\HighlightA ~\%~2))~\{
+\\	~~~~	}{\HighlightG plot}{\HighlightA (}{\HighlightF uh}{\HighlightA ,}{\HighlightG cmm}{\HighlightA =}{\HighlightD "t="}{\HighlightA +}{\HighlightF t}{\HighlightA +}{\HighlightD "$[$sec$]$"}{\HighlightA ,}{\HighlightG fill}{\HighlightA =1,}{\HighlightG grey}{\HighlightA =1,}{\HighlightG dim}{\HighlightA =2,}{\HighlightG ps}{\HighlightA =}{\HighlightF kk}{\HighlightA +}{\HighlightD ".ps"}{\HighlightA );~
+\\	~~~~	\}
+\\~~~~	}{\HighlightB //plot(uh,cmm="t="+t+"$[$sec$]$",fill=1,dim=2,ps="0"+kk+".ps");~}{\HighlightA 
+\\	}{\HighlightF kk}{\HighlightA +=1;
+\\	\}
+\\
+\\	
+\\	
+\\	
+\\	
+\\	
+\\}
+\end{document}
